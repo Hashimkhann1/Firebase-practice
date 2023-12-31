@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "560402678372",
+    "project_id": "pracfire-c0994",
+    "storage_bucket": "pracfire-c0994.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560402678372:android:0d8d56a68a260d32a79571",
+        "android_client_info": {
+          "package_name": "com.example.practfire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaGCYfhXM0ovLociINU1kUeVlHUKE9Zs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
