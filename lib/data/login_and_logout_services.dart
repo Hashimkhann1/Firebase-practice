@@ -1,6 +1,4 @@
 
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:practfire/data/provider/loading_provider.dart';
 import 'package:practfire/utils/utils.dart';
 import 'package:practfire/view/login_screen.dart';
 import 'package:practfire/view/posts/posts_screen.dart';
+import 'package:practfire/view/verify_code.dart';
 import 'package:provider/provider.dart';
 
 class LoginAndLogoutServices {
@@ -60,6 +59,49 @@ class LoginAndLogoutServices {
       }
     });
     loadingProvider.stopLoading();
+  }
+
+  void loginWithPhoneNum(BuildContext context , String phonenum) async {
+    final loadingProvider = Provider.of<LoadingProvider>(context,listen: false);
+    loadingProvider.startLoading();
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phonenum,
+        verificationCompleted: (_) {
+        loadingProvider.stopLoading();
+        },
+        verificationFailed: (e) {
+        utils.toastMessage(e.toString());
+        loadingProvider.stopLoading();
+        },
+        codeSent: (String verification , int? token ){
+        loadingProvider.stopLoading();
+        Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyCodeScreen(verificationId: verification,)));
+        },
+        codeAutoRetrievalTimeout: (e) {
+        loadingProvider.stopLoading();
+        utils.toastMessage(e.toString());
+        });
+  }
+
+  void verifyPhoneNumber(BuildContext context , String verifyCode , String verificationCode) async {
+    final loadingProvider = Provider.of<LoadingProvider>(context,listen: false);
+    loadingProvider.startLoading();
+
+    final credintal = PhoneAuthProvider.credential(
+        verificationId: verificationCode,
+        smsCode: verifyCode,
+    );
+
+    try{
+      await _auth.signInWithCredential(credintal);
+      loadingProvider.stopLoading();
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PostsScreen()));
+      utils.toastMessage("User Login Successfullt");
+    }catch(e){
+      loadingProvider.stopLoading();
+      utils.toastMessage(e.toString());
+    }
+
   }
 
   void logOut(BuildContext context) async {

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:practfire/data/login_and_logout_services.dart';
 import 'package:practfire/data/provider/loading_provider.dart';
 import 'package:practfire/utils/utils.dart';
+import 'package:practfire/view/login_with_phone.dart';
 import 'package:practfire/view/sign_up.dart';
 import 'package:practfire/widgets/round_btn_widget.dart';
 import 'package:provider/provider.dart';
@@ -112,6 +113,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text("Don't have an acccount?"),
                   TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen())), child: Text('Sign Up'))
                 ],
+              ),
+              const SizedBox(height: 6,),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhone()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.deepPurple),
+                    borderRadius: BorderRadius.circular(12)
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Text("Login with Phone"),
+                ),
               )
             ],
           ),
